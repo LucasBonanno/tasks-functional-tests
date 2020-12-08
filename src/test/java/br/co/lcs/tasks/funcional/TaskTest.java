@@ -1,24 +1,29 @@
 package br.co.lcs.tasks.funcional;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class TaskTest {
 
-	public WebDriver acessarAPP() {
-		WebDriver driver = new ChromeDriver();
-		driver.navigate().to("http://localhost:8001/tasks");
+	public WebDriver acessarAPP() throws MalformedURLException {
+//		WebDriver driver = new ChromeDriver();
+		DesiredCapabilities cap = DesiredCapabilities.chrome();
+		WebDriver driver = new RemoteWebDriver(new URL("http://169.254.210.8:4444/wd/hub"), cap);
+		driver.navigate().to("http://192.168.0.102:8001/tasks");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return driver;
 	}
 
 	@Test
-	public void deveSalvarTarerfaComSucesso() {
+	public void deveSalvarTarerfaComSucesso() throws MalformedURLException {
 		WebDriver driver = acessarAPP();
 		try {
 			driver.findElement(By.id("addTodo")).click();
@@ -33,7 +38,7 @@ public class TaskTest {
 	}
 
 	@Test
-	public void naoDeveSalvarTarerfaSemDescricao() {
+	public void naoDeveSalvarTarerfaSemDescricao() throws MalformedURLException {
 		WebDriver driver = acessarAPP();
 		try {
 			driver.findElement(By.id("addTodo")).click();
@@ -47,7 +52,7 @@ public class TaskTest {
 	}
 
 	@Test
-	public void naoDeveSalvarTarerfaSemData() {
+	public void naoDeveSalvarTarerfaSemData() throws MalformedURLException {
 		WebDriver driver = acessarAPP();
 		try {
 			driver.findElement(By.id("addTodo")).click();
@@ -61,7 +66,7 @@ public class TaskTest {
 	}
 
 	@Test
-	public void nadoDeveSalvarTarerfaComDataPassada() {
+	public void nadoDeveSalvarTarerfaComDataPassada() throws MalformedURLException {
 		WebDriver driver = acessarAPP();
 		try {
 			driver.findElement(By.id("addTodo")).click();
