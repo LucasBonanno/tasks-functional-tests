@@ -14,7 +14,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class TaskTest {
 
 	public WebDriver acessarAPP() throws MalformedURLException {
-//		WebDriver driver = new ChromeDriver();
 		DesiredCapabilities cap = DesiredCapabilities.chrome();
 		WebDriver driver = new RemoteWebDriver(new URL("http://169.254.210.8:4444/wd/hub"), cap);
 		driver.navigate().to("http://192.168.0.102:8001/tasks");
